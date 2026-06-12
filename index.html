@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redcos Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #73c088;
+            --primary-color-hover: #5fa473; 
+        }
+        body { font-family: 'Kanit', sans-serif; }
+        .bg-custom-primary { background-color: var(--primary-color) !important; }
+        .text-custom-primary { color: var(--primary-color) !important; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 pb-10">
+
+    <header class="bg-custom-primary text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-center items-center">
+            <h1 class="text-xl font-bold tracking-wide"><i class="fa-solid fa-utensils mr-2"></i> Redcos Menu</h1>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 mt-6">
+        <div class="flex space-x-2 overflow-x-auto pb-3 mb-6 scrollbar-hide">
+            <button onclick="changeCategory('ทั้งหมด', this)" class="category-btn bg-custom-primary text-white px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors shadow-sm">ทั้งหมด</button>
+            <button onclick="changeCategory('แหนมเนือง', this)" class="category-btn bg-white border border-gray-200 text-gray-600 px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors">แหนมเนือง</button>
+            <button onclick="changeCategory('อาหารตามสั่ง', this)" class="category-btn bg-white border border-gray-200 text-gray-600 px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors">อาหารตามสั่ง</button>
+            <button onclick="changeCategory('อาหารทานเล่น', this)" class="category-btn bg-white border border-gray-200 text-gray-600 px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors">อาหารทานเล่น</button>
+            <button onclick="changeCategory('เครื่องดื่ม', this)" class="category-btn bg-white border border-gray-200 text-gray-600 px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors">เครื่องดื่ม</button>
+        </div>
+
+        <div id="menu-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        </div>
+    </main>
+
+    <script>
+        const menuData = [
+            { id: 1, name: "แหนมเนือง ชุดเล็ก", price: 189, image: "https://cdn.phototourl.com/free/2026-06-12-40b667e1-df93-45e7-b645-049e9a5bb65b.jpg", desc: "แหนมเนืองเนื้อเน้นๆ ไม่ผสมแป้ง 3 ไม้", category: "แหนมเนือง" },
+            { id: 2, name: "แหนมเนือง ชุดกลาง", price: 359, image: "https://media.discordapp.net/attachments/1504541633931382955/1514983345824469072/713804518_1292167606398570_1887979839355993536_n.png?ex=6a2d59b0&is=6a2c0830&hm=805338851e1e2bf04959ea88213f7aa6aebc2f8df783499d904dfee3b3434274&=&format=webp&quality=lossless&width=730&height=730", desc: "แหนมเนืองเนื้อเน้นๆ ไม่ผสมแป้ง 6 ไม้", category: "แหนมเนือง" },
+            { id: 3, name: "แหนมเนือง ชุดใหญ่", price: 569, image: "https://media.discordapp.net/attachments/696597057242398771/1514983038587637900/713843464_1292167796398551_9063803402891506846_n.png?ex=6a2d5967&is=6a2c07e7&hm=be7167ed3f4e0c8cc1589eb057c123a17c2b38e287226545f0388a69cc555c52&=&format=webp&quality=lossless&width=730&height=730", desc: "แหนมเนืองเนื้อเน้นๆ ไม่ผสมแป้ง 10 ไม้", category: "แหนมเนือง" },
+            { id: 4, name: "แหนมเนืองโรล", price: 115, image: "https://cdn.discordapp.com/attachments/1504541633931382955/1514984498637570158/718777660_1297755939173070_4768198504300756439_n.png?ex=6a2d5ac3&is=6a2c0943&hm=6151d7a9b759bec631d91d99d32d5387081906dc134f2eb4d0344e3d001b49f1&", desc: "แหนมเนืองโรล ทานง่าย สะดวก อร่อยเพลิน 🍴เหมาะสำหรับมื้อเที่ยงที่ยุ่ง", category: "อาหารทานเล่น" },
+            { id: 5, name: "ปอเปี๊ยะกุ้งสด", price: 100, image: "https://media.discordapp.net/attachments/1504541633931382955/1514984469818380443/720259757_1297756619173002_211761560138131619_n.png?ex=6a2d5abc&is=6a2c093c&hm=1d25b652034f7e684aaa1b689d1ba9ec16979a3367c595702f41e9088997e12f&=&format=webp&quality=lossless&width=562&height=562", desc: "ปอเปี๊ยะกุ้งสด สัมผัสเบา สดชื่น ทานง่าย 🌿 เพิ่มความสดชื่นให้มื้ออาหาร", category: "อาหารทานเล่น" },
+            { id: 6, name: "น้ำอัดลม (โค้ก)", price: 20, image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=80", desc: "", category: "เครื่องดื่ม" },
+            { id: 7, name: "กะเพราหมูสับ", price: 40, image: "", desc: "", category: "อาหารตามสั่ง" },
+            { id: 8, name: "กะเพราไก่", price: 40, image: "", desc: "", category: "อาหารตามสั่ง" },
+            { id: 9, name: "กะเพราเนื้อสับ", price: 50, image: "", desc: "", category: "อาหารตามสั่ง" },
+            { id: 10,name: "ไข่ดาว", price: 8, image: "", desc: "", category: "อาหารตามสั่ง" }
+        ];
+
+        let currentCategory = 'ทั้งหมด';
+
+        function changeCategory(categoryName, btnElement) {
+            currentCategory = categoryName;
+            const allBtns = document.querySelectorAll('.category-btn');
+            allBtns.forEach(btn => {
+                btn.className = 'category-btn bg-white border border-gray-200 text-gray-600 px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors';
+            });
+            btnElement.className = 'category-btn bg-custom-primary text-white px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors shadow-sm';
+            renderMenu();
+        }
+
+        function renderMenu() {
+            const container = document.getElementById('menu-container');
+            const filteredMenu = currentCategory === 'ทั้งหมด' 
+                ? menuData 
+                : menuData.filter(item => item.category === currentCategory);
+
+            if (filteredMenu.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center py-10 text-gray-400">ยังไม่มีเมนูในหมวดหมู่นี้</div>';
+                return;
+            }
+
+            container.innerHTML = filteredMenu.map(item => `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex h-36">
+                    <div class="w-32 h-full bg-gray-100 shrink-0">
+                        ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">` : ''}
+                    </div>
+                    <div class="p-3 flex flex-col justify-between flex-1">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-1">${item.name}</h4>
+                            <p class="text-xs text-gray-400 mt-0.5 line-clamp-2">${item.desc}</p>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-base font-bold text-custom-primary">฿${item.price}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderMenu();
+    </script>
+</body>
+</html>
